@@ -18,7 +18,7 @@ class ToolsController < ApplicationController
   # POST /tools
   # POST /tools.json
   def create
-    @tool = Tool.new(params[:tool])
+    @tool = Tool.new(tool_params)
 
     if @tool.save
       render json: @tool, status: :created, location: @tool
@@ -46,5 +46,12 @@ class ToolsController < ApplicationController
     @tool.destroy
 
     head :no_content
+  end
+
+  # Whitelisting Action Controller parameters,
+  # so they can be used in Active Model mass assignments.
+  private
+  def tool_params
+    params.require(:tool).permit(:name, :description, :status)
   end
 end

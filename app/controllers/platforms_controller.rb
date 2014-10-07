@@ -18,7 +18,7 @@ class PlatformsController < ApplicationController
   # POST /platforms
   # POST /platforms.json
   def create
-    @platform = Platform.new(params[:platform])
+    @platform = Platform.new(platform_params)
 
     if @platform.save
       render json: @platform, status: :created, location: @platform
@@ -46,5 +46,12 @@ class PlatformsController < ApplicationController
     @platform.destroy
 
     head :no_content
+  end
+
+  # Whitelisting Action Controller parameters,
+  # so they can be used in Active Model mass assignments.
+  private
+  def platform_params
+    params.require(:platform).permit(:name, :description, :status)
   end
 end

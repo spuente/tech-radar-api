@@ -18,7 +18,7 @@ class LanguagesController < ApplicationController
   # POST /languages
   # POST /languages.json
   def create
-    @language = Language.new(params[:language])
+    @language = Language.new(language_params)
 
     if @language.save
       render json: @language, status: :created, location: @language
@@ -46,5 +46,12 @@ class LanguagesController < ApplicationController
     @language.destroy
 
     head :no_content
+  end
+
+  # Whitelisting Action Controller parameters,
+  # so they can be used in Active Model mass assignments.
+  private
+  def language_params
+    params.require(:language).permit(:name, :description, :status)
   end
 end
