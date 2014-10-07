@@ -1,4 +1,7 @@
 TechRadarApi::Application.routes.draw do
+  resources :languages, except: [:new, :edit]
+  resources :platforms, except: [:new, :edit]
+  resources :tools, except: [:new, :edit]
   resources :techniques, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
